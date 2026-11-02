@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ExpireMate – Good food. Last-minute deals.</title>
+<meta name="description" content="ExpireMate connects local stores, farmers and shoppers so good food near its expiry date is sold, not wasted.">
+<meta name="theme-color" content="#14532d">
+<meta property="og:title" content="ExpireMate – Good food. Last-minute deals.">
+<meta property="og:description" content="Less waste, more bites. A student project fighting food waste.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍎%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
@@ -103,7 +110,7 @@ footer a{margin:0 10px;opacity:.85}
 .burst{position:fixed;pointer-events:none;font-size:1.5rem;z-index:99}
 @media(max-width:820px){section.theme{grid-template-columns:1fr;text-align:center;min-height:auto}section.theme:nth-of-type(even) .phone{order:0}.copy p{margin-inline:auto}.logo{justify-content:center}nav .links{display:none}}
 /* ===== 3. PERFORMANCE + RESPONSIVE LAYER (phone → desktop) ===== */
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:96px}
 body{overflow-x:hidden;-webkit-tap-highlight-color:transparent}
 nav{backdrop-filter:none;background:var(--cream);box-shadow:0 1px 0 #0001;flex-wrap:wrap}
 section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inline:max(5vw,calc((100vw - 1180px)/2))}
@@ -135,15 +142,32 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
 .forest{display:grid;grid-template-columns:repeat(10,1fr);font-size:clamp(1rem,3.4vw,1.5rem);text-align:center}
 .forest span{opacity:.12;transform:scale(.5);transition:opacity .4s,transform .4s cubic-bezier(.3,1.6,.5,1)}
 .forest span.on{opacity:1;transform:none}
+/* ===== ACCESSIBILITY + CONTRAST ===== */
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--green);color:#fff;padding:8px 14px;border-radius:99px;z-index:100}.skip:focus{left:8px}
+.chip.g{background:#1f7a3c}
+.btn.o,.pbtn[style*="var(--orange)"]{color:var(--ink)}
+/* ===== WHY WE BUILT THIS ===== */
+#about{--bg:#fff}
+.aboutR{display:grid;gap:14px;width:100%;max-width:560px;justify-self:center}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.facts div{background:#eef7e6;border-radius:18px;padding:14px;font-size:.85rem}
+.facts b{display:block;font:800 clamp(1.4rem,4.5vw,2rem) 'Baloo 2';color:var(--green)}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.team div{background:#fff1e3;border-radius:18px;padding:14px;text-align:center;font-weight:800;transition:transform .25s}
+.team div:hover{transform:translateY(-4px)}
+.team span{display:block;font-size:2rem}.team small{display:block;font-weight:600;opacity:.75}
+.src{font-size:.78rem;opacity:.8}.src a{color:var(--green)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<a class="skip" href="#splash">Skip to content</a>
 
 <nav>
   <div class="logo mini" data-mood="m-bounce"></div>
   <div class="links">
-    <a href="#splash">Welcome</a><a href="#signup">Sign up</a><a href="#home">Browse</a><a href="#product">Product</a><a href="#cart">Cart</a><a href="#farmer">Farmers</a><a href="#add">Add product</a><a href="#map">Nearby</a><a href="#orders">Orders</a><a href="#confirm">Confirmed</a><a href="#how">How it works</a><a href="#impact">Impact Lab</a>
+    <a href="#splash">Welcome</a><a href="#signup">Sign up</a><a href="#home">Browse</a><a href="#product">Product</a><a href="#cart">Cart</a><a href="#farmer">Farmers</a><a href="#add">Add product</a><a href="#map">Nearby</a><a href="#orders">Orders</a><a href="#confirm">Confirmed</a><a href="#how">How it works</a><a href="#about">Why</a><a href="#impact">Impact Lab</a>
   </div>
   <a class="btn o" data-link="getApp">Get the app</a>
 </nav>
@@ -176,8 +200,8 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
     <h4 style="text-align:center;font-size:1.4rem">Welcome to ExpireMate!</h4>
     <div style="text-align:center">Save food. Support local. Make an impact.</div>
     <button class="pbtn" data-link="loginEmail">✉️ Continue with Email</button>
-    <button class="pbtn w" data-link="loginGoogle">G Continue with Google</button>
-    <button class="pbtn w" data-link="loginApple"> Continue with Apple</button>
+    <button class="pbtn w" data-link="loginGoogle">Continue with Google</button>
+    <button class="pbtn w" data-link="loginApple">Continue with Apple</button>
     <div style="text-align:center">or</div>
     <a data-link="login" style="text-align:center;font-weight:800;color:var(--green)">Already have an account? Log in</a></div></div>
 </section>
@@ -213,7 +237,7 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
   <div class="phone"><div class="scr" style="padding:0 0 14px">
     <div style="background:#c9ecb8;padding:44px 0 14px;text-align:center" class="big">🍅🍅</div>
     <div style="padding:0 14px;display:flex;flex-direction:column;gap:8px">
-    <span class="chip" style="width:fit-content">2 days left</span>
+    <span class="chip" style="width:fit-content">2 days left</span><b id="cd" style="color:#dc2626;font-variant-numeric:tabular-nums">⏱ expires in --:--:--</b>
     <h4>Tomatoes <small>1 kg</small></h4>
     <div class="row"><b style="font-size:1.3rem;color:var(--green)">₱25</b><s>₱60</s><span class="chip g">58% OFF</span></div>
     <div><b>Description</b><br>Fresh, locally sourced tomatoes. Slightly overripe but still perfect for cooking!</div>
@@ -235,7 +259,7 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
     <div class="row sp"><span>Subtotal</span><b>₱<span id="sub">40</span></b></div>
     <div class="row sp"><span>Delivery Fee</span><b>₱30</b></div>
     <div class="row sp" style="font-size:1rem"><b>Total</b><b>₱<span id="tot">70</span></b></div>
-    <button class="pbtn" data-go="#confirm">Proceed to Checkout</button></div></div>
+    <button class="pbtn" id="checkout">Proceed to Checkout</button></div></div>
 </section>
 
 <!-- 6 FARMER DASHBOARD -->
@@ -247,7 +271,7 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
     <a class="btn" data-link="sellerSignup">Become a seller</a>
   </div>
   <div class="phone"><div class="scr"><h4>Hello, Juan!</h4>Here's your store summary.
-    <div class="row"><div class="card" style="flex:1"><b style="font-size:1.3rem">12</b><br>Active Listings</div><div class="card" style="flex:1"><b style="font-size:1.3rem">5</b><br>Orders</div></div>
+    <div class="row"><div class="card" style="flex:1"><b style="font-size:1.3rem" id="nList">12</b><br>Active Listings</div><div class="card" style="flex:1"><b style="font-size:1.3rem" id="nOrd">5</b><br>Orders</div></div>
     <b>Quick Actions</b>
     <button class="pbtn" data-go="#add">＋ Add Product</button>
     <button class="pbtn" style="background:var(--orange)" data-link="sellerOrders">View Orders</button>
@@ -311,7 +335,7 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
     <div class="check" id="chk"><svg viewBox="0 0 50 50"><path d="M10 26l10 10 20-22"/></svg></div>
     <h4 style="font-size:1.3rem">Order Confirmed!</h4>
     Your fresh finds are on their way.<br>Thank you for reducing food waste.
-    <div class="card">🚚 Order #ORD12345<br><b>Arriving tomorrow</b></div>
+    <div class="card">🚚 Order #<span id="ordNo">ORD12345</span><br><b>Arriving tomorrow</b></div>
     <a class="pbtn" data-link="viewOrder" style="text-decoration:none">View Order</a></div></div>
 </section>
 
@@ -335,6 +359,17 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
   </div>
 </div>
 
+<!-- WHY WE BUILT THIS (problem, sources, team) -->
+<section class="theme" id="about">
+  <div class="copy">
+    <div class="logo" data-mood="m-float"></div><br><span class="tag">Why we built this</span>
+    <h2>A fifth of the food we buy gets thrown away.</h2>
+    <p>ExpireMate gives food that is close to its date a second chance: stores and farmers list it at a discount, and nearby shoppers rescue it. <span id="school"></span></p>
+    <p class="src">Source: <a id="srcLink" target="_blank" rel="noopener"></a></p>
+  </div>
+  <div class="aboutR"><div class="facts" id="facts"></div><h3 style="color:var(--green)">Meet the team</h3><div class="team" id="team"></div></div>
+</section>
+
 <!-- IMPACT LAB (standout feature: live community impact calculator) -->
 <section class="theme" id="impact">
   <div class="copy">
@@ -349,19 +384,20 @@ section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inli
     <label for="rPeople">People in the community <b id="vPeople">100</b></label>
     <input type="range" id="rPeople" min="1" max="1000" value="100">
     <div class="stats">
-      <div class="stat"><b data-c="kg">0</b>kg of food saved per year</div>
-      <div class="stat"><b data-c="co2">0</b>kg of CO₂ avoided</div>
-      <div class="stat"><b data-c="meals">0</b>meals rescued</div>
-      <div class="stat"><b data-c="peso">0</b>₱ saved by shoppers</div>
+      <div class="stat"><b data-stat="kg">0</b>kg of food saved per year</div>
+      <div class="stat"><b data-stat="co2">0</b>kg of CO₂ avoided</div>
+      <div class="stat"><b data-stat="meals">0</b>meals rescued</div>
+      <div class="stat"><b data-stat="peso">0</b>₱ saved by shoppers</div>
     </div>
     <div class="forest" id="forest" aria-hidden="true"></div>
-    <small id="treeNote"></small>
+    <small id="treeNote"></small><small id="assume" style="opacity:.75"></small>
   </div>
 </section>
 
 <footer>
   <div class="logo" data-mood="m-float" data-light="1"></div>
   <p style="margin:14px 0">Less waste, more bites!</p>
+  <p style="font-size:.8rem;opacity:.8;max-width:60ch;margin:0 auto 16px">Student prototype. App screens use sample data and the Impact Lab shows estimates, with the assumptions listed there.</p>
   <a data-link="instagram" href="#">Instagram</a><a data-link="facebook" href="#">Facebook</a><a data-link="tiktok" href="#">TikTok</a><a data-link="privacy" href="#">Privacy</a><a data-link="contact" href="#">Contact</a>
 </footer>
 <div id="toast"></div>
@@ -379,9 +415,14 @@ const LINKS = {
   checkout:"#",          // "Proceed to checkout"
   sellerSignup:"#", sellerOrders:"#", sellerInventory:"#", sellerAnalytics:"#",
   mapFull:"#", orders:"#", viewOrder:"#",
-  instagram:"https://instagram.com/yourhandle", facebook:"#", tiktok:"#",
-  privacy:"#", contact:"mailto:hello@yourdomain.com"
+  instagram:"#", facebook:"#", tiktok:"#",
+  privacy:"#", contact:"#"   // later e.g. contact:"mailto:you@gmail.com"
 };
+/* While a LINKS value is "#", the button does this in-page demo jump instead (so every button works).
+   Once you set a real URL in LINKS, the real URL is used and this is ignored. */
+const DEMO_FLOW={getApp:"#signup",signup:"#home",login:"#home",loginEmail:"#home",loginGoogle:"#home",loginApple:"#home",
+  browse:"#product",checkout:"#confirm",sellerSignup:"#add",sellerOrders:"#orders",sellerInventory:"#add",sellerAnalytics:"#impact",
+  mapFull:"#map",orders:"#orders",viewOrder:"#orders"};
 const TEXT = {                       // headline copy for the splash section
   splashTitle:"Good food. Last-minute deals.",
   splashText:"Less food waste. More good bites. ExpireMate connects local stores, farmers and you."
@@ -404,15 +445,27 @@ const IMPACT = {                     // Impact Lab maths – ESTIMATES, replace 
   kgPerMeal:0.4,                     // kg of food that makes one meal
   pesoPerItem:30                     // ₱ a shopper saves per rescued item
 };
+/* "Why we built this" section – edit freely */
+const SCHOOL="Your School · Class · Competition name";
+const SOURCE={text:"UNEP Food Waste Index Report 2024 (UNEP & WRAP)",url:"https://wedocs.unep.org/bitstream/handle/20.500.11822/45275/Food-Waste-Index-2024-key-messages.pdf?sequence=4"};
+const FACTS=[["1.05 billion","tonnes of food wasted worldwide in 2022"],["19%","of the food available to consumers was wasted"],["8–10%","of global greenhouse gas emissions come from food loss and waste"],["79 kg","of food wasted per person per year in homes"]];
+const TEAM=[{e:"🧑‍💻",n:"Your Name",r:"Lead developer"},{e:"🎨",n:"Teammate",r:"Designer"},{e:"📚",n:"Teammate",r:"Research"}];
 /* ===================================================================== */
 
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2000)};
 
 // links + text
-$$('[data-link]').forEach(a=>{const u=LINKS[a.dataset.link]||'#';
-  if(a.tagName==='A')a.href=u;
-  a.addEventListener('click',e=>{if(u==='#'){e.preventDefault();toast('Add your link: LINKS.'+a.dataset.link)}else if(a.tagName!=='A')location.href=u})});
+$$('[data-link]').forEach(a=>{
+  const k=a.dataset.link,u=LINKS[k]||'#',isA=a.tagName==='A',ext=/^https?:/.test(u);
+  if(isA){a.href=u;if(ext){a.target='_blank';a.rel='noopener'}}
+  a.addEventListener('click',e=>{
+    if(u!=='#'){if(!isA)window.open(u,ext?'_blank':'_self');return}
+    e.preventDefault();
+    if(DEMO_FLOW[k])$(DEMO_FLOW[k]).scrollIntoView({behavior:'smooth'});
+    toast(DEMO_FLOW[k]?'Demo mode · set LINKS.'+k+' for a real link':'Add your link in LINKS.'+k);
+  });
+});
 $$('[data-text]').forEach(e=>e.textContent=TEXT[e.dataset.text]);
 $$('[data-go]').forEach(e=>e.addEventListener('click',()=>$(e.dataset.go).scrollIntoView({behavior:'smooth'})));
 
@@ -440,20 +493,20 @@ $$('.logo').forEach(l=>{
 
 // product qty + add to cart
 let pq=1;$$('[data-q]').forEach(b=>b.onclick=()=>{pq=Math.max(1,pq+(b.dataset.q==='+'?1:-1));$('#pq').textContent=pq});
-$('#addCart').onclick=()=>toast(pq+' kg tomatoes added to cart 🍅');
+$('#addCart').onclick=()=>{qty[0]+=pq;cart();toast(pq+' kg tomatoes added · cart updated 🍅')};
 
 // cart
 const qty=[1,1];
 function cart(){const n=$$('[data-n]');qty.forEach((q,i)=>n[i].textContent=q);
-  const sub=qty.reduce((s,q,i)=>s+q*PRICES[i],0);$('#sub').textContent=sub;$('#tot').textContent=sub+DELIVERY}
+  const sub=qty.reduce((s,q,i)=>s+q*PRICES[i],0);$('#sub').textContent=sub;$('#tot').textContent=sub?sub+DELIVERY:0}
 $$('[data-c]').forEach(b=>b.onclick=()=>{const i=+b.dataset.c[0];qty[i]=Math.max(0,qty[i]+(b.dataset.c[1]==='+'?1:-1));cart()});
 
 // add product form
-$('#addForm').onsubmit=e=>{e.preventDefault();toast('Product posted! 🎉');e.target.reset()};
+$('#addForm').onsubmit=e=>{e.preventDefault();toast('Product posted! 🎉');$('#nList').textContent=+$('#nList').textContent+1;e.target.reset()};
 
 // map + stores
 $('#stores').innerHTML=STORES.map((s,i)=>`<div class="card row sp" data-i="${i}" style="margin-bottom:6px"><span class="emo" style="font-size:1.6rem">${s[0]}</span><div style="flex:1"><b>${s[1]}</b><br>${s[2]}</div><span class="chip g">${s[3]}</span></div>`).join('');
-const sel=i=>{$$('.pin').forEach(p=>p.classList.toggle('on',+p.dataset.s===i));$$('#stores .card').forEach(c=>c.style.borderColor=+c.dataset.i===i?'#2f9e55':'')};
+const sel=i=>{toast(STORES[i][1]+' · '+STORES[i][2]+' · '+STORES[i][3]);$$('.pin').forEach(p=>p.classList.toggle('on',+p.dataset.s===i));$$('#stores .card').forEach(c=>c.style.borderColor=+c.dataset.i===i?'#2f9e55':'')};
 $$('.pin').forEach(p=>p.onclick=()=>sel(+p.dataset.s));$$('#stores .card').forEach(c=>c.onclick=()=>sel(+c.dataset.i));
 
 // orders tabs
@@ -463,6 +516,38 @@ $('#tOn').onclick=()=>tab('on');$('#tHi').onclick=()=>tab('hi');tab('on');
 
 // confirmation replay
 $('#replay').onclick=()=>{const c=$('#chk'),p=$('path',c);p.style.animation='none';c.classList.remove('replay');void c.offsetWidth;p.style.animation='';c.classList.add('replay')};
+
+/* ---- Checkout: creates a real order, updates dashboard + orders + confirmation ---- */
+$('#checkout').onclick=()=>{
+  const sub=qty[0]*PRICES[0]+qty[1]*PRICES[1];
+  if(!sub){toast('Your cart is empty. Add tomatoes from the Product screen 🛒');return}
+  const no='ORD'+(10000+Math.floor(Math.random()*89999)),n=qty[0]+qty[1];
+  ORDERS.on.unshift([(qty[0]?'🍅':'')+(qty[1]?'🍌':''),'#'+no,'₱'+(sub+DELIVERY),n+(n>1?' items':' item')+" · From Juan's Farm · Arriving tomorrow"]);
+  tab('on');$('#ordNo').textContent=no;$('#nOrd').textContent=+$('#nOrd').textContent+1;
+  qty[0]=qty[1]=0;cart();$('#confirm').scrollIntoView({behavior:'smooth'});
+};
+/* ---- Home: categories + live search ---- */
+$$('.cats div').forEach(d=>d.onclick=()=>toast('Showing '+d.lastChild.textContent.trim()+' deals 🛒'));
+$('#home .scr input').oninput=e=>{const q=e.target.value.toLowerCase();
+  $$('#home .grid3 .card').forEach(c=>c.style.display=c.textContent.toLowerCase().includes(q)?'':'none')};
+/* ---- Confirmation check replays whenever you scroll to it ---- */
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$('#replay').click()}),{threshold:.5}).observe($('#confirm'));
+
+/* ---- Why we built this: rendered from the config above ---- */
+$('#school').textContent=SCHOOL;$('#srcLink').textContent=SOURCE.text;$('#srcLink').href=SOURCE.url;
+$('#facts').innerHTML=FACTS.map(f=>'<div><b>'+f[0]+'</b>'+f[1]+'</div>').join('');
+$('#team').innerHTML=TEAM.map(t=>'<div><span>'+t.e+'</span>'+t.n+'<small>'+t.r+'</small></div>').join('');
+$('#assume').textContent='Assumptions: '+IMPACT.kgPerItem+' kg of food per item, '+IMPACT.co2PerKg+' kg CO₂e per kg wasted, '+IMPACT.co2PerTree+' kg CO₂ absorbed per tree a year. These are estimates, not measurements.';
+/* ---- Live expiry countdown on the product screen ---- */
+const cdEl=$('#cd'),expAt=Date.now()+172799000,pad=n=>String(n).padStart(2,'0');
+const cd=()=>{const s=Math.max(0,Math.floor((expAt-Date.now())/1000));cdEl.textContent='⏱ expires in '+pad(Math.floor(s/3600))+':'+pad(Math.floor(s%3600/60))+':'+pad(s%60)};
+cd();setInterval(()=>{if(!document.hidden)cd()},1000);
+/* ---- Keyboard + screen-reader support ---- */
+$$('.card[data-go],#stores .card,.pin,.cats div').forEach(e=>{e.tabIndex=0;e.setAttribute('role','button');
+  e.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();e.click()}})});
+$$('.pin').forEach((p,i)=>p.setAttribute('aria-label','Store: '+STORES[i][1]));
+$$('.scr input,.scr select').forEach(i=>{if(!i.closest('label'))i.setAttribute('aria-label',i.placeholder||'field')});
+$$('.logo').forEach(l=>l.setAttribute('aria-label','ExpireMate logo'));
 
 /* ---- Smoothness: pause logo animations that are off-screen ---- */
 const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('paused',!e.isIntersecting)),{rootMargin:'100px'});
@@ -488,10 +573,10 @@ addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{
     const to=calc(),from={...cur},st=performance.now();cancelAnimationFrame(raf);
     const tick=now=>{
       const p=Math.min(1,(now-st)/600),e=1-Math.pow(1-p,3);
-      for(const k in to){cur[k]=from[k]+(to[k]-from[k])*e;$('[data-c='+k+']').textContent=fmt(cur[k])}
-      const t=cur.co2/IMPACT.co2PerTree;
-      trees.forEach((s,i)=>s.classList.toggle('on',i<t));
-      $('#treeNote').textContent='≈ '+fmt(t)+' trees absorbing CO₂ for a year';
+      for(const k in to){cur[k]=from[k]+(to[k]-from[k])*e;$('[data-stat='+k+']').textContent=fmt(cur[k])}
+      const t=cur.co2/IMPACT.co2PerTree,per=Math.max(1,Math.ceil(t/40));
+      trees.forEach((s,i)=>s.classList.toggle('on',i<t/per));
+      $('#treeNote').textContent='≈ '+fmt(t)+' trees absorbing CO₂ for a year · each 🌳 = '+fmt(per)+(per>1?' trees':' tree');
       if(p<1)raf=requestAnimationFrame(tick);
     };
     raf=requestAnimationFrame(tick);

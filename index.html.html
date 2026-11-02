@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExpireMate – Good food. Last-minute deals.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== 1. GLOBAL COLORS – change these to re-brand everything ===== */
+:root{--green:#14532d;--green2:#2f9e55;--orange:#f59e0b;--cream:#f6f8ee;--ink:#1c2b21;--purple:#8b5cf6;--blue:#3b82f6;--peach:#fff1e3;--radius:26px}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:var(--cream)}
+h1,h2,h3,.brand{font-family:'Baloo 2',sans-serif}
+a{color:inherit}
+nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;padding:10px 5vw;background:#f6f8eecc;backdrop-filter:blur(10px)}
+nav .links{display:flex;gap:16px;margin-left:auto;font-weight:800;font-size:.9rem;overflow-x:auto;white-space:nowrap}
+nav .links a{text-decoration:none;opacity:.75}nav .links a:hover{opacity:1;color:var(--green2)}
+.btn{display:inline-block;border:0;cursor:pointer;background:var(--green);color:#fff;font:800 1rem Nunito;padding:13px 26px;border-radius:99px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 24px #14532d44}
+.btn.o{background:var(--orange)}.btn.p{background:var(--purple)}.btn.b{background:var(--blue)}.btn.ghost{background:#fff;color:var(--green)}
+section.theme{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4vw;padding:8vh 6vw;background:var(--bg,var(--cream))}
+section.theme:nth-of-type(even) .phone{order:-1}
+.copy h2{font-size:clamp(2rem,4.5vw,3.6rem);line-height:1.05;color:var(--green);margin:14px 0}
+.copy p{max-width:46ch;font-size:1.1rem;line-height:1.6;margin-bottom:22px}
+.tag{display:inline-block;background:var(--tagbg,#dff3e4);color:var(--green);font-weight:800;padding:5px 14px;border-radius:99px;font-size:.85rem}
+/* ===== PHONE FRAME ===== */
+.phone{justify-self:center;width:290px;height:560px;border:9px solid #111;border-radius:42px;background:#fff;position:relative;overflow:hidden;box-shadow:0 30px 60px #0003;transition:transform .4s}
+.phone:hover{transform:rotate(-2deg) scale(1.03)}
+.phone:before{content:"";position:absolute;top:8px;left:50%;width:84px;height:22px;background:#111;border-radius:99px;transform:translateX(-50%);z-index:5}
+.scr{height:100%;padding:44px 14px 14px;overflow:auto;font-size:.8rem;display:flex;flex-direction:column;gap:10px;scrollbar-width:none}
+.scr h4{font:800 1.15rem 'Baloo 2';color:var(--green)}
+.scr input,.scr select{width:100%;padding:10px;border:1px solid #dde5d8;border-radius:10px;font:inherit;background:#fafcf8}
+.scr label{font-weight:800;font-size:.72rem}
+.pbtn{border:0;width:100%;padding:11px;border-radius:12px;background:var(--green);color:#fff;font:800 .85rem Nunito;cursor:pointer;transition:.2s}
+.pbtn:hover{filter:brightness(1.15);transform:scale(1.02)}
+.pbtn.w{background:#fff;color:var(--ink);border:1px solid #dde5d8}
+.row{display:flex;align-items:center;gap:8px}.sp{justify-content:space-between}
+.card{background:#fff;border:1px solid #e6eee2;border-radius:14px;padding:9px;cursor:pointer;transition:.25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 16px #0001}
+.chip{background:#ef4444;color:#fff;font-weight:800;font-size:.65rem;padding:2px 7px;border-radius:99px}
+.chip.g{background:var(--green2)}
+.emo{font-size:2.2rem;text-align:center}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;font-size:.65rem;font-weight:800}
+.cats span{display:block;font-size:1.6rem;background:#eef7ee;border-radius:50%;padding:6px;transition:.3s}.cats div:hover span{transform:rotate(15deg) scale(1.15)}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:24px;height:24px;border-radius:50%;border:1px solid #cfd9ca;background:#fff;cursor:pointer;font-weight:800}
+.banner{background:linear-gradient(120deg,#d9f2d0,#b5e3a6);border-radius:16px;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.big{font-size:3rem}
+/* ===== LOGO ===== */
+.logo{display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;position:relative}
+.logo{font-size:calc(var(--s,1)*16px)}
+.logo svg{width:4em;height:4em;overflow:visible}
+.brand{font-size:2.2em;font-weight:800;color:var(--green);display:flex}
+.brand i{font-style:normal;display:inline-block}.brand i.m{color:var(--orange)}
+.logo:hover .brand i{animation:wave .6s ease calc(var(--i)*.05s)}
+@keyframes wave{40%{transform:translateY(-10px) rotate(-6deg)}}
+.logo .mark{transform-origin:50% 90%}
+.logo .leaf{transform-origin:40px 14px}
+.logo.blink .eye{animation:blink .4s}
+@keyframes blink{50%{transform:scaleY(.1)}}
+.eye{transform-origin:center;transform-box:fill-box;animation:blink 4s infinite}
+/* each theme gets its own logo motion */
+.m-sprout .mark{animation:sprout 1.6s cubic-bezier(.3,1.6,.5,1) infinite alternate}@keyframes sprout{from{transform:scale(.6) translateY(10px)}to{transform:scale(1)}}
+.m-sprout .leaf{animation:sway 2s ease-in-out infinite}@keyframes sway{50%{transform:rotate(18deg)}}
+.m-wink .mark{animation:tilt 2.4s ease-in-out infinite}@keyframes tilt{50%{transform:rotate(-12deg)}}
+.m-bounce .mark{animation:bounce 1s ease-in-out infinite}@keyframes bounce{50%{transform:translateY(-14px) scaleY(1.05)}}
+.m-wobble .mark{animation:wobble 1.8s ease-in-out infinite}@keyframes wobble{25%{transform:rotate(10deg)}75%{transform:rotate(-10deg)}}
+.m-shake .mark{animation:shake 2s infinite}@keyframes shake{10%,30%{transform:translateX(-5px)}20%,40%{transform:translateX(5px)}50%{transform:none}}
+.m-float .mark{animation:float 3s ease-in-out infinite}@keyframes float{50%{transform:translateY(-10px) rotate(6deg)}}
+.m-pulse .mark{animation:pulse 1.3s infinite}@keyframes pulse{50%{transform:scale(1.15)}}
+.m-spin .mark{animation:spin 4s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.m-tada .mark{animation:tada 1.8s infinite}@keyframes tada{10%,20%{transform:scale(.9) rotate(-5deg)}30%,50%,70%{transform:scale(1.15) rotate(5deg)}40%,60%{transform:scale(1.15) rotate(-5deg)}80%{transform:none}}
+.m-roll .mark{animation:roll 3s ease-in-out infinite}@keyframes roll{50%{transform:translateX(26px) rotate(180deg)}}
+.logo:hover .mark{animation-duration:.5s}
+/* ===== MAP ===== */
+.map{height:170px;border-radius:14px;position:relative;background:linear-gradient(90deg,#0000 48%,#fff8 48% 52%,#0000 52%),linear-gradient(0deg,#0000 55%,#fff8 55% 59%,#0000 59%),#cfe8c4;overflow:hidden}
+.pin{position:absolute;font-size:1.6rem;cursor:pointer;transition:.3s;transform-origin:bottom}
+.pin.on,.pin:hover{transform:scale(1.5) translateY(-4px);filter:drop-shadow(0 4px 4px #0005)}
+.me{position:absolute;left:46%;top:56%;width:14px;height:14px;background:#3b82f6;border:3px solid #fff;border-radius:50%;animation:ping 1.6s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 14px #3b82f600}0%{box-shadow:0 0 0 0 #3b82f688}}
+/* ===== CONFIRMATION CHECK ===== */
+.check{width:84px;height:84px;margin:10px auto;border-radius:50%;background:var(--green2);display:grid;place-items:center}
+.check svg{width:46px}.check path{stroke:#fff;stroke-width:6;fill:none;stroke-linecap:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .8s .2s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.check.replay{animation:popin .5s}@keyframes popin{from{transform:scale(.3)}}
+/* ===== HOW IT WORKS ===== */
+.how{padding:10vh 6vw;background:linear-gradient(#f6f8ee,#e8f4dc);text-align:center}
+.how h2{font-size:clamp(2rem,4.5vw,3.4rem);color:var(--green)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin:36px 0}
+.step{border-radius:22px;padding:22px 14px;text-align:center;cursor:pointer;transition:.3s}
+.step:hover{transform:translateY(-8px) rotate(-1.5deg)}
+.step b{display:grid;place-items:center;width:32px;height:32px;margin:0 auto 8px;border-radius:50%;background:#fff;font-family:'Baloo 2'}
+.step .e{font-size:3rem;display:block;transition:.4s}.step:hover .e{transform:scale(1.25) rotate(10deg)}
+.impact{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.impact div{background:#fff;border-radius:20px;padding:20px;font-weight:700;transition:.3s}.impact div:hover{transform:scale(1.05);box-shadow:0 12px 24px #0001}
+.impact em{display:block;font-size:2.4rem;font-style:normal}
+footer{background:var(--green);color:#fff;text-align:center;padding:50px 6vw}
+footer a{margin:0 10px;opacity:.85}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:12px 22px;border-radius:99px;font-weight:800;z-index:99;transition:.4s}
+#toast.on{transform:translate(-50%,0)}
+.burst{position:fixed;pointer-events:none;font-size:1.5rem;z-index:99}
+@media(max-width:820px){section.theme{grid-template-columns:1fr;text-align:center;min-height:auto}section.theme:nth-of-type(even) .phone{order:0}.copy p{margin-inline:auto}.logo{justify-content:center}nav .links{display:none}}
+/* ===== 3. PERFORMANCE + RESPONSIVE LAYER (phone → desktop) ===== */
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+nav{backdrop-filter:none;background:var(--cream);box-shadow:0 1px 0 #0001;flex-wrap:wrap}
+section.theme{min-height:100svh;padding-block:clamp(48px,9vh,100px);padding-inline:max(5vw,calc((100vw - 1180px)/2))}
+.phone{width:min(290px,78vw);height:min(560px,calc(78vw*1.93));will-change:transform}
+.logo .mark{will-change:transform}
+.card,.step,.impact div,.pbtn,.btn,.phone{transition-property:transform,box-shadow,filter;transition-duration:.25s;transition-timing-function:cubic-bezier(.2,.8,.2,1)}
+.phone:hover{transform:none}
+@media(hover:hover){.phone:hover{transform:translateY(-6px)}}
+.paused .mark,.paused .leaf{animation-play-state:paused}
+#bar{position:fixed;top:0;left:0;height:4px;width:100%;background:linear-gradient(90deg,var(--green2),var(--orange));transform:scaleX(0);transform-origin:0 50%;z-index:60;will-change:transform}
+@media(max-width:820px){
+  nav{padding:8px 4vw;gap:8px}
+  nav .btn{margin-left:auto;padding:9px 16px}
+  nav .links{display:flex;order:3;width:100%;margin:0;padding-bottom:4px;scrollbar-width:none}
+  section.theme{grid-template-columns:1fr;gap:28px;padding-block:44px}
+  .copy{order:0}.phone,section.theme:nth-of-type(even) .phone{order:1}
+}
+@media(min-width:1500px){html{font-size:18px}}
+/* ===== IMPACT LAB ===== */
+#impact{--bg:radial-gradient(circle at 20% 0,#1f7a46,#0f3d22 70%);color:#fff}
+#impact .copy h2{color:#fff}#impact .tag{background:#ffffff22;color:#fff}
+.lab{display:grid;gap:12px;width:100%;max-width:520px;justify-self:center}
+.lab label{display:flex;justify-content:space-between;font-weight:800}
+.lab label b{color:#ffd36a}
+.lab input[type=range]{width:100%;accent-color:var(--orange);height:32px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#ffffff14;border-radius:18px;padding:14px;font-size:.85rem}
+.stat b{display:block;font:800 clamp(1.5rem,5vw,2.1rem) 'Baloo 2';color:#ffd36a}
+.forest{display:grid;grid-template-columns:repeat(10,1fr);font-size:clamp(1rem,3.4vw,1.5rem);text-align:center}
+.forest span{opacity:.12;transform:scale(.5);transition:opacity .4s,transform .4s cubic-bezier(.3,1.6,.5,1)}
+.forest span.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo mini" data-mood="m-bounce"></div>
+  <div class="links">
+    <a href="#splash">Welcome</a><a href="#signup">Sign up</a><a href="#home">Browse</a><a href="#product">Product</a><a href="#cart">Cart</a><a href="#farmer">Farmers</a><a href="#add">Add product</a><a href="#map">Nearby</a><a href="#orders">Orders</a><a href="#confirm">Confirmed</a><a href="#how">How it works</a><a href="#impact">Impact Lab</a>
+  </div>
+  <a class="btn o" data-link="getApp">Get the app</a>
+</nav>
+
+<!-- 1 SPLASH -->
+<section class="theme" id="splash" style="--bg:linear-gradient(160deg,#f6f8ee,#d9f0c8)">
+  <div class="copy">
+    <div class="logo big-logo" data-mood="m-sprout" data-size="1.5"></div>
+    <h2 data-text="splashTitle"></h2>
+    <p data-text="splashText"></p>
+    <a class="btn" href="#signup">Get started</a>
+  </div>
+  <div class="phone"><div class="scr" style="align-items:center;justify-content:center;text-align:center;background:linear-gradient(#fffbe6,#e0f4cf)">
+    <div class="logo" data-mood="m-sprout" data-size="1.1"></div>
+    <div style="font-weight:700">Good food. Last-minute deals.</div>
+    <div class="big">🧺</div>
+    <div style="font-weight:800;color:var(--green)">Less food waste.<br>More good bites.</div>
+    <a class="pbtn" href="#signup" style="text-decoration:none">Get Started</a></div></div>
+</section>
+
+<!-- 2 SIGN UP -->
+<section class="theme" id="signup" style="--bg:#fff">
+  <div class="copy">
+    <div class="logo" data-mood="m-wink"></div><br><span class="tag">Screen 2 · Sign up / Log in</span>
+    <h2>Welcome to ExpireMate!</h2>
+    <p>Save food. Support local. Make an impact. Join in under a minute.</p>
+    <a class="btn" data-link="signup">Create account</a>
+  </div>
+  <div class="phone"><div class="scr" style="justify-content:center">
+    <h4 style="text-align:center;font-size:1.4rem">Welcome to ExpireMate!</h4>
+    <div style="text-align:center">Save food. Support local. Make an impact.</div>
+    <button class="pbtn" data-link="loginEmail">✉️ Continue with Email</button>
+    <button class="pbtn w" data-link="loginGoogle">G Continue with Google</button>
+    <button class="pbtn w" data-link="loginApple"> Continue with Apple</button>
+    <div style="text-align:center">or</div>
+    <a data-link="login" style="text-align:center;font-weight:800;color:var(--green)">Already have an account? Log in</a></div></div>
+</section>
+
+<!-- 3 HOME -->
+<section class="theme" id="home" style="--bg:#eef7e6">
+  <div class="copy">
+    <div class="logo" data-mood="m-bounce"></div><br><span class="tag">Screen 3 · Home / Browse</span>
+    <h2>Good food. Last-minute deals.</h2>
+    <p>Browse fresh produce, dairy, bakery and pantry items close to expiry, at up to 60% off.</p>
+    <a class="btn" data-link="browse">Shop now</a>
+  </div>
+  <div class="phone"><div class="scr">
+    <div class="row sp"><div class="logo" data-mood="m-bounce" data-size=".5"></div>🔔</div>
+    <input placeholder="🔍 Search for products, stores…">
+    <div class="banner"><div><b>Good food.<br>Last-minute deals.</b><br><button class="pbtn" style="margin-top:6px;width:auto;padding:6px 14px" data-link="browse">Shop Now</button></div><span class="big">🥬</span></div>
+    <div class="cats"><div><span>🥕</span>Fruits &amp; Veggies</div><div><span>🥛</span>Dairy &amp; Eggs</div><div><span>🥐</span>Bakery</div><div><span>🫙</span>Pantry</div></div>
+    <b>Near Expiry Deals</b>
+    <div class="grid3">
+      <div class="card" data-go="#product"><span class="chip">2 days</span><div class="emo">🍅</div><b>₱25</b><br>Tomatoes</div>
+      <div class="card" data-go="#product"><span class="chip">1 day</span><div class="emo">🍌</div><b>₱15</b><br>Bananas</div>
+      <div class="card" data-go="#product"><span class="chip">1 day</span><div class="emo">🍞</div><b>₱18</b><br>Bread</div>
+    </div></div></div>
+</section>
+
+<!-- 4 PRODUCT -->
+<section class="theme" id="product" style="--bg:#fff">
+  <div class="copy">
+    <div class="logo" data-mood="m-wobble"></div><br><span class="tag">Screen 4 · Product details</span>
+    <h2>Slightly overripe. Still perfect.</h2>
+    <p>See the days left, the discount and the farm it came from before you buy.</p>
+  </div>
+  <div class="phone"><div class="scr" style="padding:0 0 14px">
+    <div style="background:#c9ecb8;padding:44px 0 14px;text-align:center" class="big">🍅🍅</div>
+    <div style="padding:0 14px;display:flex;flex-direction:column;gap:8px">
+    <span class="chip" style="width:fit-content">2 days left</span>
+    <h4>Tomatoes <small>1 kg</small></h4>
+    <div class="row"><b style="font-size:1.3rem;color:var(--green)">₱25</b><s>₱60</s><span class="chip g">58% OFF</span></div>
+    <div><b>Description</b><br>Fresh, locally sourced tomatoes. Slightly overripe but still perfect for cooking!</div>
+    <div class="row">🧑‍🌾 <div><b>Juan's Farm</b><br>Local Farmer · 2.4 km</div></div>
+    <div class="row"><div class="qty"><button data-q="-">−</button><b id="pq">1</b><button data-q="+">+</button></div><button class="pbtn" id="addCart">Add to Cart</button></div></div></div></div>
+</section>
+
+<!-- 5 CART -->
+<section class="theme" id="cart" style="--bg:#f1f8ea">
+  <div class="copy">
+    <div class="logo" data-mood="m-shake"></div><br><span class="tag">Screen 5 · Cart / Checkout</span>
+    <h2>Your cart, your savings.</h2>
+    <p>Try it — change quantities and the total updates live.</p>
+    <a class="btn" data-link="checkout">Proceed to checkout</a>
+  </div>
+  <div class="phone"><div class="scr"><h4>← Your Cart</h4>
+    <div class="card row sp"><span class="emo">🍅</span><div><b>Tomatoes</b><br>1kg · ₱<span data-price>25</span></div><div class="qty"><button data-c="0-">−</button><b data-n>1</b><button data-c="0+">+</button></div></div>
+    <div class="card row sp"><span class="emo">🍌</span><div><b>Bananas</b><br>1kg · ₱<span data-price>15</span></div><div class="qty"><button data-c="1-">−</button><b data-n>1</b><button data-c="1+">+</button></div></div>
+    <div class="row sp"><span>Subtotal</span><b>₱<span id="sub">40</span></b></div>
+    <div class="row sp"><span>Delivery Fee</span><b>₱30</b></div>
+    <div class="row sp" style="font-size:1rem"><b>Total</b><b>₱<span id="tot">70</span></b></div>
+    <button class="pbtn" data-go="#confirm">Proceed to Checkout</button></div></div>
+</section>
+
+<!-- 6 FARMER DASHBOARD -->
+<section class="theme" id="farmer" style="--bg:#e9f6e3;--tagbg:#cdeec3">
+  <div class="copy">
+    <div class="logo" data-mood="m-float"></div><br><span class="tag">For Farmers, Suppliers &amp; Stores · Screen 6</span>
+    <h2>Less loss, more profit.</h2>
+    <p>One dashboard for listings, orders, inventory and sales analytics.</p>
+    <a class="btn" data-link="sellerSignup">Become a seller</a>
+  </div>
+  <div class="phone"><div class="scr"><h4>Hello, Juan!</h4>Here's your store summary.
+    <div class="row"><div class="card" style="flex:1"><b style="font-size:1.3rem">12</b><br>Active Listings</div><div class="card" style="flex:1"><b style="font-size:1.3rem">5</b><br>Orders</div></div>
+    <b>Quick Actions</b>
+    <button class="pbtn" data-go="#add">＋ Add Product</button>
+    <button class="pbtn" style="background:var(--orange)" data-link="sellerOrders">View Orders</button>
+    <button class="pbtn" style="background:var(--purple)" data-link="sellerInventory">Manage Inventory</button>
+    <button class="pbtn" style="background:var(--blue)" data-link="sellerAnalytics">Sales Analytics</button></div></div>
+</section>
+
+<!-- 7 ADD PRODUCT -->
+<section class="theme" id="add" style="--bg:#fff;--tagbg:#cdeec3">
+  <div class="copy">
+    <div class="logo" data-mood="m-pulse"></div><br><span class="tag">For Farmers &amp; Stores · Screen 7</span>
+    <h2>List it before it expires.</h2>
+    <p>Add a photo, set a price and the days to expiry. Shoppers nearby see it right away.</p>
+  </div>
+  <div class="phone"><form class="scr" id="addForm"><h4>← Add Product</h4>
+    <div class="card" style="text-align:center">📷 Add photos (Required)</div>
+    <label>Product Name<input placeholder="e.g. Tomatoes" required></label>
+    <label>Category<select><option>Fruits &amp; Veggies</option><option>Dairy &amp; Eggs</option><option>Bakery</option><option>Pantry</option></select></label>
+    <label>Quantity<input placeholder="e.g. 5 kg"></label>
+    <label>Price<input placeholder="e.g. ₱25"></label>
+    <label>Days to Expire<select><option>1 day</option><option>2 days</option><option>3 days</option></select></label>
+    <button class="pbtn">Post Product</button></form></div>
+</section>
+
+<!-- 8 MAP -->
+<section class="theme" id="map" style="--bg:var(--peach);--tagbg:#ffe0c2">
+  <div class="copy">
+    <div class="logo" data-mood="m-spin"></div><br><span class="tag">For Buyers · Screen 8 · Nearby stores</span>
+    <h2>Deals within walking distance.</h2>
+    <p>Tap a pin to see which store is closest and how much you can save.</p>
+    <a class="btn o" data-link="mapFull">Open full map</a>
+  </div>
+  <div class="phone"><div class="scr"><h4>← Nearby Stores</h4>
+    <div class="map"><div class="me"></div>
+      <span class="pin" style="left:18%;top:30%" data-s="0">📍</span><span class="pin" style="left:70%;top:20%" data-s="1">🟠</span><span class="pin" style="left:78%;top:62%" data-s="2">📍</span></div>
+    <div id="stores"></div></div></div>
+</section>
+
+<!-- 9 ORDERS -->
+<section class="theme" id="orders" style="--bg:#fff7ef;--tagbg:#ffe0c2">
+  <div class="copy">
+    <div class="logo" data-mood="m-roll"></div><br><span class="tag">For Buyers · Screen 9 · My orders</span>
+    <h2>Track every bite.</h2>
+    <p>Ongoing orders and your full history in one place.</p>
+    <a class="btn o" data-link="orders">View my orders</a>
+  </div>
+  <div class="phone"><div class="scr"><h4>My Orders</h4>
+    <div class="row"><button class="pbtn" id="tOn">Ongoing</button><button class="pbtn w" id="tHi">History</button></div>
+    <div id="ordList"></div></div></div>
+</section>
+
+<!-- 10 CONFIRM -->
+<section class="theme" id="confirm" style="--bg:linear-gradient(160deg,#fff7ef,#ddf3d2);--tagbg:#ffe0c2">
+  <div class="copy">
+    <div class="logo" data-mood="m-tada"></div><br><span class="tag">For Buyers · Screen 10 · Confirmation</span>
+    <h2>Order confirmed!</h2>
+    <p>Your fresh finds are on their way. Thank you for reducing food waste.</p>
+    <button class="btn" id="replay">Replay animation</button>
+  </div>
+  <div class="phone"><div class="scr" style="text-align:center;justify-content:center">
+    <div class="check" id="chk"><svg viewBox="0 0 50 50"><path d="M10 26l10 10 20-22"/></svg></div>
+    <h4 style="font-size:1.3rem">Order Confirmed!</h4>
+    Your fresh finds are on their way.<br>Thank you for reducing food waste.
+    <div class="card">🚚 Order #ORD12345<br><b>Arriving tomorrow</b></div>
+    <a class="pbtn" data-link="viewOrder" style="text-decoration:none">View Order</a></div></div>
+</section>
+
+<!-- HOW IT WORKS (infographic) -->
+<div class="how" id="how">
+  <div class="logo" data-mood="m-wink" data-size="1.4"></div>
+  <h2 style="margin-top:12px">Connecting local stores, farmers, and you</h2>
+  <p>Because good food shouldn't go to waste.</p>
+  <div class="steps">
+    <div class="step" style="background:#d8f0c8"><b>1</b><span class="e">🧑‍🌾</span><h3>Farmers &amp; Suppliers</h3>Share fresh produce nearing expiry.</div>
+    <div class="step" style="background:#ffe8b8"><b>2</b><span class="e">🏪</span><h3>Local Stores</h3>List discounted items before they expire.</div>
+    <div class="step" style="background:#d4f0d8"><b>3</b><span class="e">👩‍💻</span><h3>Nearby Shoppers</h3>Find and buy fresh food at lower prices.</div>
+    <div class="step" style="background:#e4d9fb"><b>4</b><span class="e">📲</span><h3>Order &amp; Pick Up</h3>Choose, pay, and pick up (or get it delivered).</div>
+    <div class="step" style="background:#cfe8fb"><b>5</b><span class="e">🌍</span><h3>Less Food Waste</h3>Good food reaches people, not landfills.</div>
+  </div>
+  <div class="impact">
+    <div style="background:#ffd9dd"><em>📈</em>Farmers earn more<br><small>Less loss, more profit.</small></div>
+    <div style="background:#e9dcfb"><em>🪙</em>Stores save costs<br><small>Move products before they expire.</small></div>
+    <div style="background:#ffeabf"><em>🐷</em>You save money<br><small>Fresh food, for less.</small></div>
+    <div style="background:#cfeed4"><em>🌱</em>A greener planet<br><small>Less waste, healthier future.</small></div>
+  </div>
+</div>
+
+<!-- IMPACT LAB (standout feature: live community impact calculator) -->
+<section class="theme" id="impact">
+  <div class="copy">
+    <div class="logo" data-mood="m-pulse"></div><br><span class="tag">Impact Lab · try it</span>
+    <h2>What if your whole neighbourhood joined?</h2>
+    <p>Slide to see how much food, money and CO₂ a community could save in one year with ExpireMate. These are estimates; you can change the numbers in IMPACT.</p>
+    <button class="btn o" id="shareImpact">Copy my impact</button>
+  </div>
+  <div class="lab">
+    <label for="rItems">Items each person rescues per week <b id="vItems">5</b></label>
+    <input type="range" id="rItems" min="1" max="30" value="5">
+    <label for="rPeople">People in the community <b id="vPeople">100</b></label>
+    <input type="range" id="rPeople" min="1" max="1000" value="100">
+    <div class="stats">
+      <div class="stat"><b data-c="kg">0</b>kg of food saved per year</div>
+      <div class="stat"><b data-c="co2">0</b>kg of CO₂ avoided</div>
+      <div class="stat"><b data-c="meals">0</b>meals rescued</div>
+      <div class="stat"><b data-c="peso">0</b>₱ saved by shoppers</div>
+    </div>
+    <div class="forest" id="forest" aria-hidden="true"></div>
+    <small id="treeNote"></small>
+  </div>
+</section>
+
+<footer>
+  <div class="logo" data-mood="m-float" data-light="1"></div>
+  <p style="margin:14px 0">Less waste, more bites!</p>
+  <a data-link="instagram" href="#">Instagram</a><a data-link="facebook" href="#">Facebook</a><a data-link="tiktok" href="#">TikTok</a><a data-link="privacy" href="#">Privacy</a><a data-link="contact" href="#">Contact</a>
+</footer>
+<div id="toast"></div>
+
+<script>
+/* =====================================================================
+   2. CONFIG – THE ONLY PLACE YOU NEED TO EDIT FOR LINKS & TEXT
+   Every button with data-link="name" in the HTML reads from LINKS below.
+   Replace "#" with your real URL (https://…, mailto:…, tel:…, /page.html).
+   ===================================================================== */
+const LINKS = {
+  getApp:"#",            // nav "Get the app" button (App Store / Play Store / waitlist)
+  signup:"#", login:"#", loginEmail:"#", loginGoogle:"#", loginApple:"#",
+  browse:"#",            // "Shop now"
+  checkout:"#",          // "Proceed to checkout"
+  sellerSignup:"#", sellerOrders:"#", sellerInventory:"#", sellerAnalytics:"#",
+  mapFull:"#", orders:"#", viewOrder:"#",
+  instagram:"https://instagram.com/yourhandle", facebook:"#", tiktok:"#",
+  privacy:"#", contact:"mailto:hello@yourdomain.com"
+};
+const TEXT = {                       // headline copy for the splash section
+  splashTitle:"Good food. Last-minute deals.",
+  splashText:"Less food waste. More good bites. ExpireMate connects local stores, farmers and you."
+};
+const BRAND = ["E","x","p","i","r","e","M","a","t","e"];  // wordmark letters; "M" onward is orange
+const STORES = [                     // Screen 8 list  → [emoji, name, distance, discount]
+  ["🥬","Green Day Market","1.2 km · Open","10% OFF"],
+  ["🍅","Fresh Corner","2.4 km · Open","15% OFF"],
+  ["🥕","Local Farm Store","3.1 km · Open","20% OFF"]
+];
+const ORDERS = {                     // Screen 9 data
+  on:[["🍅🍌","#ORD12345","₱70","2 items · From Juan's Farm · Arriving tomorrow"]],
+  hi:[["🍞🥬","#ORD12344","₱120","3 items · From Fresh Corner · Delivered May 10"]]
+};
+const DELIVERY = 30, PRICES = [25,15];   // cart prices & delivery fee (₱)
+const IMPACT = {                     // Impact Lab maths – ESTIMATES, replace with figures you can cite
+  kgPerItem:0.5,                     // average kg of food in one rescued item
+  co2PerKg:2.5,                      // kg CO₂e avoided per kg of food not wasted
+  co2PerTree:21,                     // kg CO₂ one tree absorbs per year
+  kgPerMeal:0.4,                     // kg of food that makes one meal
+  pesoPerItem:30                     // ₱ a shopper saves per rescued item
+};
+/* ===================================================================== */
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2000)};
+
+// links + text
+$$('[data-link]').forEach(a=>{const u=LINKS[a.dataset.link]||'#';
+  if(a.tagName==='A')a.href=u;
+  a.addEventListener('click',e=>{if(u==='#'){e.preventDefault();toast('Add your link: LINKS.'+a.dataset.link)}else if(a.tagName!=='A')location.href=u})});
+$$('[data-text]').forEach(e=>e.textContent=TEXT[e.dataset.text]);
+$$('[data-go]').forEach(e=>e.addEventListener('click',()=>$(e.dataset.go).scrollIntoView({behavior:'smooth'})));
+
+// animated logo (one SVG mark + letter-by-letter wordmark; each section sets its own motion via data-mood)
+const markSVG=`<svg viewBox="0 0 80 80"><g class="mark">
+<path d="M40 22c-8-7-26-4-26 18 0 18 12 34 26 30 14 4 26-12 26-30 0-22-18-25-26-18z" fill="#8ee06a" stroke="#14532d" stroke-width="4" stroke-linejoin="round"/>
+<g class="leaf"><path d="M40 20c0-8 6-14 16-14 0 9-6 15-16 14z" fill="#2f9e55" stroke="#14532d" stroke-width="3"/></g>
+<ellipse class="eye" cx="30" cy="42" rx="3.4" ry="4.6" fill="#14532d"/><ellipse class="eye" cx="50" cy="42" rx="3.4" ry="4.6" fill="#14532d"/>
+<path d="M32 54q8 8 16 0" stroke="#14532d" stroke-width="3.5" fill="none" stroke-linecap="round"/></g></svg>`;
+$$('.logo').forEach(l=>{
+  l.classList.add(l.dataset.mood||'m-bounce');
+  const word=BRAND.map((c,i)=>`<i class="${i>=6?'m':''}" style="--i:${i}">${c}</i>`).join('');
+  l.innerHTML=markSVG+(l.classList.contains('mini')||true?`<span class="brand">${word}</span>`:'');
+  l.style.setProperty('--s',l.classList.contains('mini')?.6:(l.dataset.size||1));
+  if(l.dataset.light)$$('.brand',l).forEach(b=>b.style.color='#fff');
+  l.addEventListener('click',()=>{            // click = wink + emoji burst
+    l.classList.add('blink');setTimeout(()=>l.classList.remove('blink'),420);
+    const r=l.getBoundingClientRect();
+    ['🍎','🍃','🥕','🍅','🍌','🥬','🍞','🌱'].forEach((em,i)=>{
+      const b=document.createElement('span');b.className='burst';b.textContent=em;
+      b.style.left=r.left+r.width/2+'px';b.style.top=r.top+r.height/2+'px';document.body.append(b);
+      const a=i/8*Math.PI*2;
+      b.animate([{transform:'translate(0,0) scale(.4)',opacity:1},{transform:`translate(${Math.cos(a)*90}px,${Math.sin(a)*90}px) scale(1.2)`,opacity:0}],{duration:800,easing:'ease-out'}).onfinish=()=>b.remove()})});
+});
+
+// product qty + add to cart
+let pq=1;$$('[data-q]').forEach(b=>b.onclick=()=>{pq=Math.max(1,pq+(b.dataset.q==='+'?1:-1));$('#pq').textContent=pq});
+$('#addCart').onclick=()=>toast(pq+' kg tomatoes added to cart 🍅');
+
+// cart
+const qty=[1,1];
+function cart(){const n=$$('[data-n]');qty.forEach((q,i)=>n[i].textContent=q);
+  const sub=qty.reduce((s,q,i)=>s+q*PRICES[i],0);$('#sub').textContent=sub;$('#tot').textContent=sub+DELIVERY}
+$$('[data-c]').forEach(b=>b.onclick=()=>{const i=+b.dataset.c[0];qty[i]=Math.max(0,qty[i]+(b.dataset.c[1]==='+'?1:-1));cart()});
+
+// add product form
+$('#addForm').onsubmit=e=>{e.preventDefault();toast('Product posted! 🎉');e.target.reset()};
+
+// map + stores
+$('#stores').innerHTML=STORES.map((s,i)=>`<div class="card row sp" data-i="${i}" style="margin-bottom:6px"><span class="emo" style="font-size:1.6rem">${s[0]}</span><div style="flex:1"><b>${s[1]}</b><br>${s[2]}</div><span class="chip g">${s[3]}</span></div>`).join('');
+const sel=i=>{$$('.pin').forEach(p=>p.classList.toggle('on',+p.dataset.s===i));$$('#stores .card').forEach(c=>c.style.borderColor=+c.dataset.i===i?'#2f9e55':'')};
+$$('.pin').forEach(p=>p.onclick=()=>sel(+p.dataset.s));$$('#stores .card').forEach(c=>c.onclick=()=>sel(+c.dataset.i));
+
+// orders tabs
+function tab(k){$('#tOn').className='pbtn'+(k==='on'?'':' w');$('#tHi').className='pbtn'+(k==='hi'?'':' w');
+  $('#ordList').innerHTML=ORDERS[k].map(o=>`<div class="card"><div class="row sp"><b>${o[1]}</b><b>${o[2]}</b></div><div class="emo" style="text-align:left">${o[0]}</div>${o[3]}</div>`).join('')}
+$('#tOn').onclick=()=>tab('on');$('#tHi').onclick=()=>tab('hi');tab('on');
+
+// confirmation replay
+$('#replay').onclick=()=>{const c=$('#chk'),p=$('path',c);p.style.animation='none';c.classList.remove('replay');void c.offsetWidth;p.style.animation='';c.classList.add('replay')};
+
+/* ---- Smoothness: pause logo animations that are off-screen ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('paused',!e.isIntersecting)),{rootMargin:'100px'});
+$$('.logo').forEach(l=>io.observe(l));
+
+/* ---- Scroll progress bar (throttled with requestAnimationFrame) ---- */
+const bar=document.createElement('div');bar.id='bar';document.body.prepend(bar);let tk=0;
+addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{
+  bar.style.transform='scaleX('+scrollY/((document.documentElement.scrollHeight-innerHeight)||1)+')';tk=0})},{passive:true});
+
+/* ---- Impact Lab: live calculator with animated counters ---- */
+(()=>{
+  const f=$('#forest');f.innerHTML='<span>🌳</span>'.repeat(40);const trees=$$('span',f);
+  const cur={kg:0,co2:0,meals:0,peso:0};let raf;
+  const fmt=n=>Math.round(n).toLocaleString();
+  function calc(){
+    const it=+$('#rItems').value,pp=+$('#rPeople').value;
+    $('#vItems').textContent=it;$('#vPeople').textContent=pp.toLocaleString();
+    const n=it*pp*52,kg=n*IMPACT.kgPerItem;
+    return{kg,co2:kg*IMPACT.co2PerKg,meals:kg/IMPACT.kgPerMeal,peso:n*IMPACT.pesoPerItem};
+  }
+  function run(){
+    const to=calc(),from={...cur},st=performance.now();cancelAnimationFrame(raf);
+    const tick=now=>{
+      const p=Math.min(1,(now-st)/600),e=1-Math.pow(1-p,3);
+      for(const k in to){cur[k]=from[k]+(to[k]-from[k])*e;$('[data-c='+k+']').textContent=fmt(cur[k])}
+      const t=cur.co2/IMPACT.co2PerTree;
+      trees.forEach((s,i)=>s.classList.toggle('on',i<t));
+      $('#treeNote').textContent='≈ '+fmt(t)+' trees absorbing CO₂ for a year';
+      if(p<1)raf=requestAnimationFrame(tick);
+    };
+    raf=requestAnimationFrame(tick);
+  }
+  ['#rItems','#rPeople'].forEach(s=>$(s).addEventListener('input',run));run();
+  $('#shareImpact').onclick=()=>{
+    const c=calc(),msg='With '+$('#vPeople').textContent+' people rescuing '+$('#vItems').textContent+' items a week, ExpireMate could save '+fmt(c.kg)+' kg of food and '+fmt(c.co2)+' kg of CO₂ a year. 🌱';
+    (navigator.clipboard?navigator.clipboard.writeText(msg):Promise.reject()).then(()=>toast('Impact copied!'),()=>toast(msg));
+  };
+})();
+</script>
+</body>
+</html>
